@@ -6,7 +6,7 @@
 ![license](https://img.shields.io/badge/PHP-dev-green)
 ![GitHub Org's stars](https://img.shields.io/github/stars/omarcoscardoso?style=social)
 
-Projeto Simples para implementação de um sistema de votação em PHP/mysql, originalmente o projeto foi feito no PHP 5.4, rodando localmente em uma maquina virtualizada, agora, para fins didaticos imlpementamos a usabilidade com Docker.
+Projeto Simples para implementação de um sistema de votação em PHP/mysql, originalmente o projeto foi feito no PHP 5.4, rodando localmente em uma maquina virtualizada, agora, para fins didaticos implementamos a usabilidade com Docker.
 
 ## 🔨 Funcionalidades do projeto
 
@@ -29,7 +29,7 @@ O sistema possui funcionalidades para:
 
 Você pode [acessar o código fonte do projeto](https://github.com/omarcoscardoso/eleicao-simples) ou [baixá-lo](https://github.com/omarcoscardoso/eleicao-simples/archive/refs/heads/main.zip).
 
-## 🛠️ Execulando o projeto
+## 🛠️ Execultando o projeto
 
 Com o Docker e Docker-compose devidamente instalado, execulte:
 
