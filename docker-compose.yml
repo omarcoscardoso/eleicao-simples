@@ -1,0 +1,39 @@
+version: '3.7'
+
+services: 
+
+  php:
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    image: cardoso/php5:dev
+    container_name: php-eleicao
+    networks: 
+      - votanet
+    tty: true
+    volumes:
+      - type: bind 
+        source: ./www
+        target: /var/www
+    ports:
+      - "8080:80"
+    depends_on: 
+      - db
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db-eleicao
+    restart: always
+    tty: true
+    volumes: 
+      - ./mysql:/var/lib/mysql
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=eleicao
+    networks: 
+      - votanet
+
+networks: 
+  votanet:
+    driver: bridge      

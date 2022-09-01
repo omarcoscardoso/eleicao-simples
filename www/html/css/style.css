@@ -1,0 +1,341 @@
+* { margin: 0; padding: 0; z-index: 1; }
+
+body {
+  padding-left: 0em;
+  font-family: Verdana,Arial;
+  color: #000;
+}
+
+h1{
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 20; 
+  text-align: center;
+  color: #fff;
+  background-image: linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -o-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -moz-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -webkit-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -ms-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+
+background-image: -webkit-gradient(
+	linear,
+	right top,
+	left top,
+	color-stop(0, rgb(145,175,201)),
+	color-stop(0.73, rgb(28,96,156))
+);
+
+} 
+
+h2{
+  text-align: center;
+  color: #fff;
+  background-image: linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -o-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -moz-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -webkit-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+  background-image: -ms-linear-gradient(right , rgb(145,175,201) 0%, rgb(28,96,156) 73%);
+
+background-image: -webkit-gradient(
+	linear,
+	right top,
+	left top,
+	color-stop(0, rgb(145,175,201)),
+	color-stop(0.73, rgb(28,96,156))
+);
+
+} 
+
+div.tipo {
+  position: relative; 
+  top: 10%; 
+  left: 25%; 
+  background-color: #EEE;
+  width: 50%;
+  border: 0;
+  text-align: center;
+}
+
+div.ontext{font-size:12px;font-weight: bold ;background:transparent;position:absolute; left: 0%;border:#000000 0px solid;text-align:center;}
+div.ontext i p{display:none;}
+div.ontext i:hover p{cursor:default;margin:0 0 0 0;color:blue;background: transparent;
+divposition:absolute;text-align:center;left:-1px;z-index:100;display:block;border:#000000 0px solid;border-top:0;width:96%;padding:2px 2%;font-style:normal;}
+div.ontext a img{text-decoration:none;} 
+div.ontext a,.ontext img a,.ontext em{display:block;} 
+div.ontext p a{display:inline;}
+div.ontext i img{border:0;margin:2px 0 2px 0;}
+
+div.incluir {
+ 
+    position:relative;
+    left:12%;
+    top:1%;
+}
+div.incluir fieldset {
+
+    width:300px;
+    height:250px;
+}
+
+div.urna {
+  position: relative; 
+  top: 0%; 
+  background-color: #EEE;
+  border: 0;
+  text-align: center;
+}
+
+div.habilita {
+  position: relative; 
+  top: 5%; 
+  left: 18%; 
+  background-color: #EEE;
+  border: 0;
+  width: 65%;
+  line-height:160%;
+  text-align: left;
+}
+
+div.msg {
+  position: relative; 
+  top: 5%; 
+  left: 18%; 
+  width: 65%;
+  text-align: center;
+  font-weight: bold ;
+  font-size: 15;
+}
+div.msg p {
+  font-weight: bold ;
+  color: red;
+  font-size: 16;
+} 
+
+table.info {
+  position: absolute; 
+  top: 15%; 
+  left: 10%; 
+  background-color: #eee;
+  width: 15%;
+  border: thin silver solid;
+  text-align: center;
+}
+table.info td {
+  border: thin silver solid;
+  text-align: center;
+  font-style: normal;
+  font-weight:  ;
+  color: #000;
+  font-size: 13;
+  text-indent: 0;
+}
+
+table.figura {
+  position: absolute; 
+  top: 0%; 
+  left: 36%; 
+  background-color: #eee;
+  width: 45%;
+  border: thin silver solid;
+  text-align: center;
+}
+table.figura th {
+  padding: 0 0 0 0;
+  border: thin silver solid;
+  background-color: #fff;
+  text-align: center;
+  color: silver;
+}
+table.figura td {
+  border: thin silver solid;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold ;
+  color: #C60;
+  font-size: 13;
+  text-indent: 0;
+
+background-image: linear-gradient(right bottom, rgb(247,247,247) 0%, rgb(230,230,230) 100%);
+background-image: -o-linear-gradient(right bottom, rgb(247,247,247) 0%, rgb(230,230,230) 100%);
+background-image: -moz-linear-gradient(right bottom, rgb(247,247,247) 0%, rgb(230,230,230) 100%);
+background-image: -webkit-linear-gradient(right bottom, rgb(247,247,247) 0%, rgb(230,230,230) 100%);
+background-image: -ms-linear-gradient(right bottom, rgb(247,247,247) 0%, rgb(230,230,230) 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	right bottom,
+	left top,
+	color-stop(0, rgb(247,247,247)),
+	color-stop(1, rgb(230,230,230))
+);
+
+}
+
+img.escala {
+  width: 40%;
+}
+
+table.lista {
+  position: relative; 
+  top: 5% ;
+  margin-left: 20%; 
+  width: 60%;
+  border: 0;
+  text-align: center;
+}
+table.lista td {
+  border: 10;
+  font-family: Verdana,Arial;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal ;
+  color: #000;
+  font-size: 16;
+  text-indent: 0;
+}
+
+table.urna {
+  position: relative; 
+  top: 5% ;
+  margin-left: 12%; 
+  width: 75%;
+  border: thin silver solid;
+  text-align: center;
+}
+table.urna td {
+  border: thin silver solid;
+  font-family: arial;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal ;
+  color: #000;
+  font-size: 15;
+  text-indent: 0;
+}
+table.urna th {
+  border: none;
+  font-family: arial;
+  text-align: center;
+  font-weight: 100 ;
+  color: #000;
+  font-size: 35;
+  text-indent: 0;
+}
+table.urna caption {
+  border: none;
+  font-family: Verdana,Arial;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold ;
+  color: #000;
+  font-size: 35;
+  text-indent: 0;
+}
+table.urna caption b {
+  font-family: Verdana,Arial;
+  color: red;
+  font-size: 20;
+}
+
+table.urna_top {
+  position: relative; 
+  top: 0% ;
+  margin-left: 20%; 
+  width: 60%;
+  border: 0;
+  text-align: center;
+}
+table.urna_top td {
+  border: 0;
+  font-family: arial;
+  text-align: left;
+  font-style: normal;
+  font-weight: normal ;
+  color: #000;
+  font-size: 20;
+  text-indent: 0;
+}
+table.urna_top th {
+  border: none;
+  font-family: arial;
+  text-align: center;
+  font-weight: 100 ;
+  color: #000;
+  font-size: 35;
+  text-indent: 0;
+}
+table.urna_top caption {
+  border: none;
+  font-family: Verdana,Arial;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold ;
+  color: #000;
+  font-size: 35;
+  text-indent: 0;
+}
+table.urna_top caption b {
+  font-family: Verdana,Arial;
+  color: red;
+  font-size: 20;
+}
+
+table.resulta {
+  position: relative; 
+  top: 5% ;
+  left: -5%; 
+  margin-left: 20%; 
+  width: 70%;
+  border: thin silver solid;
+  text-align: center;
+  background-color: #fff;
+
+}
+table.resulta td {
+  border: thin silver solid;
+  font-family: Verdana,Arial;
+  font-style: normal;
+  font-weight: normal ;
+  color: #000;
+  font-size: 16;
+  text-indent: 0;
+}
+table.resulta th {
+  border: none;
+  font-family: Verdana,Arial;
+  text-align: center;
+  color: #666;
+  font-size: 16;
+  text-indent: 0;
+}
+table.resulta caption {
+  border: none;
+  font-family: Verdana,Arial;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold ;
+  color: #C60;
+  font-size: 20;
+  text-indent: 0;
+}
+
+
+.botao {
+  font-size:12px;
+  font-family:Verdana,Helvetica;
+  font-weight:bold;
+  color:white;
+  background:#638cb5;
+  width:80px;
+  height:19px;
+}
+
+.botao_urna {
+  font-size:25px;
+  font-family: Arial, Verdana,Helvetica;
+  font-weight:bold;
+  color:white;
+  background:green;
+  width: 150px;
+  height:40px;
+}
