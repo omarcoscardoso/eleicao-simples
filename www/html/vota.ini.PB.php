@@ -32,14 +32,20 @@ function  show_enquete($id_ENQUETE,$sessao){
     }
 			
     if(isset($_POST[opcao])) {
-      $result_f= mysql_query("SELECT candidato.id_candidato 
+      $result_f= mysql_query("SELECT candidato.id_candidato
                                 FROM candidato 
                                WHERE candidato.id_candidato='$_POST[opcao]' 
                                  and candidato.id_enquete=$id_ENQUETE 
                                  and ativo='t'")or die(mysql_error());
-      $opcao_f = mysql_result($result_f,0);
+      $rs_opcao = mysql_fetch_assoc($result_f);
+      
+      if ($rs_opcao['id_candidato']) {
+        $opcao_f = $rs_opcao['id_candidato'];
+      }
+      
       $result_id= mysql_query("SELECT max(candidato.id_candidato) FROM candidato WHERE candidato.id_enquete=$id_ENQUETE and ativo='t'")or die(mysql_error());
       $opcao_id = mysql_result($result_id,0);
+
       if($_POST[opcao] > $opcao_id
           or $_POST[opcao] <> $opcao_f
           or $_POST[opcao] == " "
