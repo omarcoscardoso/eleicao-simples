@@ -7,9 +7,9 @@ require("include/monta_urnas.php");             //inclusao do arquivo com a func
 
 if(isset($_GET[urna])){                       //Testa se o form foi postado
 
-  inicia_sessao($_GET[urna]);                 //Chama a função
+  inicia_sessao($_GET[urna]);                 //Chama a funÃ§Ã£o
   
-}else{                                        //se não foi postado imprime o form
+}else{                                        //se nÃ£o foi postado imprime o form
 ?>
 <html>
   <body>    

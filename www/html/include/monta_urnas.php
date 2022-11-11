@@ -1,6 +1,6 @@
 <?php
 require_once("conecta.php");
-include("../vota.ini.PB.php");
+// include("../vota.ini.PB.php");
 
 function inicia_sessao($sessao){
 		

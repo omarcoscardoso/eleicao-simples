@@ -53,8 +53,8 @@ function insertCandidato($id_ENQUETE){
           while($row = mysql_fetch_assoc($query)){
             $nome_list     = $row["nome"];
             $ativo         = $row["ativo"];
-    				$sql = mysql_query("SELECT candidato.nome FROM candidato WHERE candidato.nome='$nome_list' and id_enquete =$id_ENQUETE ")or die(mysql_error());
-    				$nome_c = mysql_result($sql,0);
+    				$sql = mysql_query("SELECT candidato.nome FROM candidato WHERE candidato.nome='$nome_list' and id_enquete =$id_ENQUETE ") or die(mysql_error());
+    				$nome_c = mysql_result($sql, 0);
     				if ($nome_c == $nome_list){
     					$checked = 'checked';
     					$abilita = 'DISABLED';
@@ -93,11 +93,8 @@ function insertEleitor($info) {
     }
     $count++;
   }
-  //echo $fields;
-  //echo '<br>';
-  //echo $values;
-  //echo "INSERT INTO eleitores ($fields,ativo) VALUES ($values,'f')"; exit;
-	mysql_query("INSERT INTO eleitores ($fields,ativo) VALUES ($values,'f')")or die(mysql_error());       //Realização da query
+
+  mysql_query("INSERT INTO eleitores ($fields,ativo) VALUES ($values,'f')")or die(mysql_error());       //Realização da query
 
   return (mysql_affected_rows() == 1) ? true : false; 
 
@@ -137,9 +134,6 @@ function insertEleicao($info,$table){
   if($idEnquete == null ){
       $idEnquete = '1';
   }
-
-  //echo "INSERT INTO ".$table."(".$fields.", id_enquete) VALUES (".$values.",".$idEnquete.")";
-  //exit(); die();
 
   mysql_query("INSERT INTO $table($fields,id_enquete) VALUES($values,$idEnquete)");                         //Realização da query
   mysql_query("INSERT INTO candidato(id_candidato,nome,id_enquete,ativo) VALUES(0,'Nulo',$idEnquete,'f')"); //Realização da query
