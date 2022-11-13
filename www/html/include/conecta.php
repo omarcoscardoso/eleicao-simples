@@ -1,9 +1,9 @@
 <?php
 
     $user = 'root';
-    $password = 'root';
+    $password = 'ipr@2022';
     $db = 'eleicao';
-    $host = '172.27.0.2';
+    $host = '172.19.0.2';
 
 mysql_connect($host, $user,$password) or die('ERRO NA CONEXAO:'.mysql_error());
 mysql_select_db($db)or die('ERRO AO ESCOLHER O BD :'.mysql_error());
