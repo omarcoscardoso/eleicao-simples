@@ -1,3 +1,4 @@
+--  nome | sexo | data_nascimento | data_admissao | tipo_consagracao | ativo
 ----------------------------------------------------------------------------------
 INSERT INTO eleitores VALUES
 ("Adriano Menger Bobsin","Masculino","1973-12-09","2003-11-01","Presbítero","t"),

@@ -29,7 +29,7 @@ services:
     volumes: 
       - ./mysql:/var/lib/mysql
     environment: 
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=ipr@2022
       - MYSQL_DATABASE=eleicao
     networks: 
       - votanet
