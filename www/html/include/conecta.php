@@ -1,7 +1,7 @@
 <?php
 
     $user = 'root';
-    $password = 'ipr@2022';
+    $password = 'root';
     $db = 'eleicao';
     $host = '172.19.0.2';
 
