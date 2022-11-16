@@ -63,7 +63,7 @@ function  show_enquete($id_ENQUETE,$sessao){
         $result_voto   = mysql_query("SELECT count(*) FROM votos where votos.id_enquete='$id_ENQUETE' and turno='$turno' and votos.id_opcao='$_POST[opcao]'")or die(mysql_error());
         $votos_x_opcao = mysql_result($result_voto,0);
         $votos_x_opcao = ($votos_x_opcao+1);
-        $msg='<font style="font-family:Arial; font-size:30px; color:red"><b>Voc&ecirc; j&aacute; votou neste candidato!</b></font>';  
+        $msg='<font style="font-family:Arial; font-size:30px; color:red"><b>Voc&ecirc; j&aacute; votou neste candidato!</b></font>';
 
         if($cont == 1){
 
@@ -100,6 +100,9 @@ function  show_enquete($id_ENQUETE,$sessao){
   						mysql_query('UPDATE sessao SET votos = "'.$qtvoto.'" WHERE id_enquete="'.$id_ENQUETE.'" AND sessao="'.$sessao.'" AND turno="'.$turno.'" ') or die(mysql_error());	
   					}
   				  echo "<font SIZE=7 STYLE='font-size: 200pt'>FIM!</font>";
+            echo "<audio id='audio' autoplay>";
+            echo "  <source src='som.mp3' type='audio/mp3' />";
+            echo "</audio>";
   				  echo "<script>setTimeout( function() { window.location = '?urna=".$sessao."'; }, 5000 );</script>";
   				  exit;
   	      } //FECHA 2ºTURNO ////////////////////////////////////////////////////////////////////////////////////////
@@ -149,6 +152,9 @@ function  show_enquete($id_ENQUETE,$sessao){
                 mysql_query('UPDATE sessao SET votos = "'.$qtvoto.'" WHERE id_enquete="'.$id_ENQUETE.'" AND sessao="'.$sessao.'" AND turno="'.$turno.'" ') or die(mysql_error());	
 							}
 							echo "<font SIZE=7 STYLE='font-size: 200pt'>FIM!</font>";
+              echo "<audio id='audio' autoplay>";
+              echo "  <source src='som.mp3' type='audio/mp3' />";
+              echo "</audio>";
 							echo "<script>setTimeout( function() { window.location = '?urna=".$sessao."'; }, 5000 );</script>";
 							exit;
           }
