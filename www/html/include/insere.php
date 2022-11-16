@@ -15,6 +15,7 @@ function insertCandidato($id_ENQUETE){
 		
     foreach($_POST[ativo] as $key){  
       $Result = mysql_query("SELECT max(candidato.id_candidato) as soma FROM candidato WHERE candidato.id_enquete=$id_ENQUETE");
+      $result_c = null;
       $idCandidato = mysql_result($Result,0);
       if ($idCandidato < 0 ){
 	  	$idCandidato = 1;
@@ -22,7 +23,11 @@ function insertCandidato($id_ENQUETE){
 	  	$idCandidato ++ ;
 	  	}
 	  		$sql = mysql_query("SELECT candidato.nome FROM candidato WHERE candidato.nome='$key' and candidato.id_enquete=$id_ENQUETE")or die(mysql_error());
-	  		$result_c = mysql_result($sql,0);
+        $rs_result = mysql_fetch_assoc($sql);
+	  		
+        if ($rs_result['nome']) {
+          $result_c = $rs_result['nome'];
+        }
 	  		if ($result_c != $key){
 	  			mysql_query("INSERT INTO candidato (id_candidato,nome,id_enquete,ativo) VALUES ($idCandidato,'$key',$id_ENQUETE,'t')")or die(mysql_error()); 			
 	  			}     
@@ -53,8 +58,13 @@ function insertCandidato($id_ENQUETE){
           while($row = mysql_fetch_assoc($query)){
             $nome_list     = $row["nome"];
             $ativo         = $row["ativo"];
-    				$sql = mysql_query("SELECT candidato.nome FROM candidato WHERE candidato.nome='$nome_list' and id_enquete =$id_ENQUETE ")or die(mysql_error());
-    				$nome_c = mysql_result($sql,0);
+    				$nome_c        = null;
+            $sql = mysql_query("SELECT candidato.nome FROM candidato WHERE candidato.nome='$nome_list' and id_enquete =$id_ENQUETE ") or die(mysql_error());
+            $rs_result = mysql_fetch_assoc($sql);
+            
+            if ($rs_result['nome']) {
+              $nome_c = $rs_result['nome'];
+            } 
     				if ($nome_c == $nome_list){
     					$checked = 'checked';
     					$abilita = 'DISABLED';
@@ -93,11 +103,8 @@ function insertEleitor($info) {
     }
     $count++;
   }
-  //echo $fields;
-  //echo '<br>';
-  //echo $values;
-  //echo "INSERT INTO eleitores ($fields,ativo) VALUES ($values,'f')"; exit;
-	mysql_query("INSERT INTO eleitores ($fields,ativo) VALUES ($values,'f')")or die(mysql_error());       //Realização da query
+
+  mysql_query("INSERT INTO eleitores ($fields,ativo) VALUES ($values,'f')")or die(mysql_error());       //Realização da query
 
   return (mysql_affected_rows() == 1) ? true : false; 
 
@@ -137,9 +144,6 @@ function insertEleicao($info,$table){
   if($idEnquete == null ){
       $idEnquete = '1';
   }
-
-  //echo "INSERT INTO ".$table."(".$fields.", id_enquete) VALUES (".$values.",".$idEnquete.")";
-  //exit(); die();
 
   mysql_query("INSERT INTO $table($fields,id_enquete) VALUES($values,$idEnquete)");                         //Realização da query
   mysql_query("INSERT INTO candidato(id_candidato,nome,id_enquete,ativo) VALUES(0,'Nulo',$idEnquete,'f')"); //Realização da query
