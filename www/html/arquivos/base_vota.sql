@@ -92,7 +92,7 @@ CREATE TABLE `urnas` (
   `ip` varchar(15) NOT NULL,
   `local` text,
   PRIMARY KEY (`sessao`),
-  UNIQUE KEY `ip` (`ip`)
+  UNIQUE KEY `ip` (`ip`,`sessao`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

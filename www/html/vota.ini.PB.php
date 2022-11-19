@@ -67,9 +67,9 @@ function  show_enquete($id_ENQUETE,$sessao){
         $msg='<font style="font-family:Arial; font-size:30px; color:red"><b>Voc&ecirc; j&aacute; votou neste candidato!</b></font>';
 
         if($cont == 1){
-
+          $unico = false;
           //1ºTURNO  
-  		    if ($turno == 1) {
+  		    if ($turno == 1 && $unico == false) {
   				  $ssql=mysql_query('SELECT id_opcao FROM votou where id_opcao="'.$_POST['opcao'].'" and id_enquete="'.$id_ENQUETE.'" and sessao="'.$sessao.'"')or die(mysql_error());
   				  $voto=mysql_fetch_row($ssql);
   				  if ($voto[0] == $_POST['opcao']){
@@ -81,7 +81,7 @@ function  show_enquete($id_ENQUETE,$sessao){
               $html_enquete='<font style="font-family:Arial; font-size:30px; color:red"><strong>Vote no 2&deg; Candidato!</strong></font>';       
             }
            //2ºTURNO  ////////////////////////////////////////////////////////////////////////////////////////		
-          }elseif ($turno >= 2){
+          }elseif ($turno >= 2 || $unico == true){
             $ssql=mysql_query('SELECT id_opcao FROM votou where id_opcao="'.$_POST['opcao'].'" and id_enquete="'.$id_ENQUETE.'" and sessao="'.$sessao.'"')or die(mysql_error());
             $voto=mysql_fetch_row($ssql);
   					if ($voto[0] == $_POST['opcao']){
@@ -104,7 +104,7 @@ function  show_enquete($id_ENQUETE,$sessao){
             echo "<audio id='audio' autoplay>";
             echo "  <source src='som.mp3' type='audio/mp3' />";
             echo "</audio>";
-  				  echo "<script>setTimeout( function() { window.location = '?urna=".$sessao."'; }, 5000 );</script>";
+  				  echo "<script>setTimeout( function() { window.location = '?urna=".$sessao."'; }, 1000 );</script>";
   				  exit;
   	      } //FECHA 2ºTURNO ////////////////////////////////////////////////////////////////////////////////////////
 
