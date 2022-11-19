@@ -58,7 +58,8 @@ if($result <> $turno){
 	// }elseif($id_ENQUETE >= 1 and $turno >= 2){ 
 	// 		$total_eleitores = $total_votos ;		
 	// }
-	if($turno == 1){
+	$unico = false;
+	if($turno == 1 && $unico == false){
 		$total_eleitores = ($total_votos/4);
 	}else{
 		$total_eleitores = ($total_votos/1);
