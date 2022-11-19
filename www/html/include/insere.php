@@ -45,13 +45,11 @@ function insertCandidato($id_ENQUETE){
     	<div class="habilita">    
         <form method="post" action="<?=$PHP_SELF;?>" name="habilita">
         <?php 
-         if ($id_ENQUETE == '1'){
-    		   $sexo = 'Masculino';
-    		 }elseif($id_ENQUETE == '2'){
-    		   $sexo = 'Masculino';
-    		 }elseif($id_ENQUETE == '3'){
+         if ($id_ENQUETE == '3'){
     		   $sexo = 'Feminino';
-    		 }
+    		 } else {
+          $sexo = 'Masculino';
+         }
        
           $query = mysql_query("SELECT * FROM eleitores WHERE sexo = '$sexo' order by eleitores.nome") or die(msql_error());
 
