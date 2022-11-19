@@ -104,7 +104,7 @@ function  show_enquete($id_ENQUETE,$sessao){
             echo "<audio id='audio' autoplay>";
             echo "  <source src='som.mp3' type='audio/mp3' />";
             echo "</audio>";
-  				  echo "<script>setTimeout( function() { window.location = '?urna=".$sessao."'; }, 1000 );</script>";
+  				  echo "<script>setTimeout( function() { window.location = '?urna=".$sessao."'; }, 5000 );</script>";
   				  exit;
   	      } //FECHA 2ºTURNO ////////////////////////////////////////////////////////////////////////////////////////
 
