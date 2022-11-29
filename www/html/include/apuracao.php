@@ -10,10 +10,15 @@ return (mysql_affected_rows() > 0) ? true : false;
 }
 
 function apuracao($id_ENQUETE,$turno){	
-	echo '<div class="msg">';
+	echo '<div class="msg">'; 
 	$sql= mysql_query("SELECT DISTINCT(turno) FROM apuracao WHERE apuracao.id_enquete=$id_ENQUETE and turno=$turno")or die(mysql_error());
-	$result = mysql_result($sql,0);
 	
+	if (mysql_num_rows($sql)) {
+		$result = mysql_result($sql,0);
+	} else {
+		$result = null;
+	}
+
 	if($result == $turno){
 		echo "<p>Votos j&aacute;  apurados para esta elei&ccedil;&atilde;o</p><br>";
 		echo '<input class="botao" name="Voltar" type="button" value="Voltar" onClick="JavaScript: window.history.back();">';
@@ -51,21 +56,20 @@ if($result <> $turno){
 	$ssql=mysql_query('SELECT * FROM votos WHERE votos.id_enquete="'.$id_ENQUETE.'" and turno="'.$turno.'"')or die(mysql_error());
 	$total_votos=mysql_num_rows($ssql);
 
-	// if ($id_ENQUETE == 1 and $turno == 1){ 
-	// 	$total_eleitores = ($total_votos/4); 
-	// }elseif($id_ENQUETE == 2 or 3 and $turno ==1){ 
-	// 		$total_eleitores = ($total_votos/3);		
-	// }elseif($id_ENQUETE >= 1 and $turno >= 2){ 
-	// 		$total_eleitores = $total_votos ;		
-	// }
-	$unico = false;
+	$sql_nom_eleicao = mysql_query('SELECT nome_enquete FROM opcoes WHERE id_enquete='.$id_ENQUETE);
+    $nome_eleicao = mysql_result($sql_nom_eleicao, 0) ;
+
+	$unico = true;
 	if($turno == 1 && $unico == false){
 		$total_eleitores = ($total_votos/4);
 	}else{
 		$total_eleitores = ($total_votos/1);
 	}
 
-$html_enquete.='<table class="resulta">';
+$html_enquete ='<table class="resulta">';
+$html_enquete.= "<caption>";	
+$html_enquete.= $nome_eleicao.'<br>';
+$html_enquete.= "</caption>";
 $html_enquete.= "<caption>";	
 $html_enquete.='TURNO '.$turno.'<br>';
 $html_enquete.= "</caption>";
