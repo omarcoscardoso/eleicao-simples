@@ -6,9 +6,9 @@ require_once("vota.ini.PB.php");
  echo show_head();
 
 if(isset($_POST[enquete])){                       //Testa se o form foi postado
-  $var = $_POST[enquete]; 
-  $id_ENQUETE = $var[0]; 
-  $turno = $var[2] ;
+  $var = explode(' ', $_POST[enquete]);
+  $id_ENQUETE = $var[0];
+  $turno = $var[1] ;
   echo "<h1>Apura&ccedil;&atilde;o  de Votos</h1>";
   echo "<div class='msg'>";
   if(apuracao($id_ENQUETE,$turno)){                  //Chama a função
