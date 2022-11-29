@@ -7,20 +7,19 @@ require_once("vota.ini.PB.php");
 
 if(isset($_POST[id_resultado])){                  //Testa se o form foi postado
 
-	$var = $_POST[id_resultado]; 
+	$var = explode(' ', $_POST[id_resultado]); 
 	$id_ENQUETE = $var[0]; 
-	$turno = $var[2] ;
+	$turno = $var[1] ;
 
 	echo '<h1>Resultado</h1>';	
 	echo show_apuracao($id_ENQUETE,$turno);
 	echo '<table class="resulta">';
 	echo '<tr><td>';
 	echo '<input class="botao" name="Voltar" type="button" value="Voltar" onClick="JavaScript: window.history.back();">'; 
-//    echo '<INPUT type="button" value="Fechar" onClick="window.close()">'; 
 	echo '<input class="botao" type="button" name="imprimir" value="Imprimir" onclick="window.print();">';
 	echo '</td></tr>';
 }
-else{                                             //se não foi postado imprime o form
+else{   //se não foi postado imprime o form
 ?>
 <html>
   <body>
