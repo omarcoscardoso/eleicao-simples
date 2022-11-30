@@ -43,74 +43,79 @@ return (mysql_affected_rows() == 1) ? true : false;
 }
 
 function show_apuracao($id_ENQUETE,$turno){
-echo '<div class="msg">';
-$sql= mysql_query("SELECT DISTINCT(turno) FROM apuracao WHERE apuracao.id_enquete=$id_ENQUETE and turno=$turno")or die(mysql_error());
-$result = mysql_result($sql,0);
-
-if($result <> $turno){
-	echo "<p>Votos ainda n&atilde;o foram apurados</p><br>";
-	echo '<input class="botao" name="Voltar" type="button" value="Voltar" onClick="JavaScript: window.history.back();">';
-	exit; 
-}else{
+	$html_enquete = '';
 	
-	$ssql=mysql_query('SELECT * FROM votos WHERE votos.id_enquete="'.$id_ENQUETE.'" and turno="'.$turno.'"')or die(mysql_error());
-	$total_votos=mysql_num_rows($ssql);
+	$result_qt= mysql_query("SELECT quantidade FROM opcoes WHERE id_enquete=$id_ENQUETE")or die(mysql_error());
+	$quantidade = mysql_result($result_qt,0);
 
-	$sql_nom_eleicao = mysql_query('SELECT nome_enquete FROM opcoes WHERE id_enquete='.$id_ENQUETE);
-    $nome_eleicao = mysql_result($sql_nom_eleicao, 0) ;
+	echo '<div class="msg">';
+	$sql= mysql_query("SELECT DISTINCT(turno) FROM apuracao WHERE apuracao.id_enquete=$id_ENQUETE and turno=$turno")or die(mysql_error());
+	$result = mysql_result($sql,0);
 
-	$unico = true;
-	if($turno == 1 && $unico == false){
-		$total_eleitores = ($total_votos/4);
+	if($result <> $turno){
+		echo "<p>Votos ainda n&atilde;o foram apurados</p><br>";
+		echo '<input class="botao" name="Voltar" type="button" value="Voltar" onClick="JavaScript: window.history.back();">';
+		exit; 
 	}else{
-		$total_eleitores = ($total_votos/1);
+
+		$ssql=mysql_query('SELECT * FROM votos WHERE votos.id_enquete="'.$id_ENQUETE.'" and turno="'.$turno.'"')or die(mysql_error());
+		$total_votos=mysql_num_rows($ssql);
+
+		$sql_nom_eleicao = mysql_query('SELECT nome_enquete FROM opcoes WHERE id_enquete='.$id_ENQUETE);
+	    $nome_eleicao = mysql_result($sql_nom_eleicao, 0) ;
+
+		$unico = false;
+		if($turno == 1 && $unico == false){
+			$total_eleitores = ($total_votos/$quantidade);
+		}else{
+			$total_eleitores = ($total_votos/1);
+		}
+
+	$html_enquete.='<table class="resulta">';
+	$html_enquete.= "<caption>";	
+	$html_enquete.= $nome_eleicao.'<br>';
+	$html_enquete.= "</caption>";
+	$html_enquete.= "<caption>";	
+	$html_enquete.='TURNO '.$turno.'<br>';
+	$html_enquete.= "</caption>";
+	$html_enquete.='<tr>';
+	$html_enquete.='<th>Candidato</th>';
+	$html_enquete.='<th>Percentual</th>';
+	$html_enquete.='<th>Votos</th>';
+	$html_enquete.='</tr>';
+
+	$selec = "SELECT distinct(candidato.id_candidato)
+	               , candidato.nome 
+	               , apuracao.total_votos 
+	            FROM apuracao, candidato
+	           WHERE candidato.id_enquete = ".$id_ENQUETE."
+	             AND candidato.id_enquete = apuracao.id_enquete
+	             AND apuracao.total_votos > 0
+	             AND apuracao.id_candidato = candidato.id_candidato
+	             AND apuracao.turno = $turno
+	             order by apuracao.total_votos desc";
+	
+	$exec = mysql_query($selec) or die(mysql_error());
+	while($dados=mysql_fetch_array($exec)) {
+		$estimar_porcentagem= @round($dados['total_votos']*100/$total_eleitores,1);
+		$html_enquete.="<tr>";
+		$html_enquete.="<td align='left'>".$dados['nome']."</td>";
+		$html_enquete.="<td>".$estimar_porcentagem."%</td>";
+		$html_enquete.="<td><b>".$dados['total_votos']."</b></td>";
+		$html_enquete.="</tr>";
 	}
+	$html_enquete.='<tr>';
+	$html_enquete.='<th colspan="3"><br>Total de eleitores: '.$total_eleitores.'</th>';
+	$html_enquete.='</tr>';
+	$html_enquete.='<tr>';
+	$html_enquete.='<th colspan="3">Total de votos: '.$total_votos.'<br><br></th>';
+	$html_enquete.='</tr>';
 
-$html_enquete ='<table class="resulta">';
-$html_enquete.= "<caption>";	
-$html_enquete.= $nome_eleicao.'<br>';
-$html_enquete.= "</caption>";
-$html_enquete.= "<caption>";	
-$html_enquete.='TURNO '.$turno.'<br>';
-$html_enquete.= "</caption>";
-$html_enquete.='<tr>';
-$html_enquete.='<th>Candidato</th>';
-$html_enquete.='<th>Percentual</th>';
-$html_enquete.='<th>Votos</th>';
-$html_enquete.='</tr>';
+	$html_enquete.='</table>';
 
-$selec = "SELECT distinct(candidato.id_candidato)
-               , candidato.nome 
-               , apuracao.total_votos 
-            FROM apuracao, candidato
-           WHERE candidato.id_enquete = ".$id_ENQUETE."
-             AND candidato.id_enquete = apuracao.id_enquete
-             AND apuracao.total_votos > 0
-             AND apuracao.id_candidato = candidato.id_candidato
-             AND apuracao.turno = $turno
-             order by apuracao.total_votos desc";
-         
-$exec = mysql_query($selec) or die(mysql_error());
-while($dados=mysql_fetch_array($exec)) {
-	$estimar_porcentagem= @round($dados['total_votos']*100/$total_eleitores,1);
-	$html_enquete.="<tr>";
-	$html_enquete.="<td align='left'>".$dados['nome']."</td>";
-	$html_enquete.="<td>".$estimar_porcentagem."%</td>";
-	$html_enquete.="<td><b>".$dados['total_votos']."</b></td>";
-	$html_enquete.="</tr>";
-}
-$html_enquete.='<tr>';
-$html_enquete.='<th colspan="3"><br>Total de eleitores: '.$total_eleitores.'</th>';
-$html_enquete.='</tr>';
-$html_enquete.='<tr>';
-$html_enquete.='<th colspan="3">Total de votos: '.$total_votos.'<br><br></th>';
-$html_enquete.='</tr>';
-
-$html_enquete.='</table>';
-
-}         
-echo '</div>';
-return $html_enquete;
+	}         
+	echo '</div>';
+	return $html_enquete;
 }
 
 

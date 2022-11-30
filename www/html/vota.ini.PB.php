@@ -22,7 +22,7 @@ function  show_enquete($id_ENQUETE,$sessao){
   $enquete=eleicao($id_ENQUETE);
   $html_enquete = '';
   if (!array_key_exists($id_ENQUETE,$enquete)) {
-     return ('O id da enquete nao se encontra disponivel');
+     return ('O id da Eleição nao se encontra disponível');
   } else {
     $result_t= mysql_query("SELECT max(turno) FROM apuracao WHERE apuracao.id_enquete=$id_ENQUETE")or die(mysql_error());
     $opcao_t = mysql_result($result_t,0);
@@ -66,7 +66,10 @@ function  show_enquete($id_ENQUETE,$sessao){
         $votos_x_opcao = ($votos_x_opcao+1);
         $msg='<font style="font-family:Arial; font-size:30px; color:red"><b>Voc&ecirc; j&aacute; votou neste candidato!</b></font>';
 
-        if($cont == 1){
+        $result_qt= mysql_query("SELECT quantidade FROM opcoes WHERE id_enquete=$id_ENQUETE")or die(mysql_error());
+        $quantidade = mysql_result($result_qt,0);
+
+        if ($cont == 1) {
           $unico = false;
           //1ºTURNO  
   		    if ($turno == 1 && $unico == false) {
@@ -81,7 +84,7 @@ function  show_enquete($id_ENQUETE,$sessao){
               $html_enquete='<font style="font-family:Arial; font-size:30px; color:red"><strong>Vote no 2&deg; Candidato!</strong></font>';       
             }
            //2ºTURNO  ////////////////////////////////////////////////////////////////////////////////////////		
-          }elseif ($turno >= 2 || $unico == true){
+          } elseif ($turno >= 2 || $unico == true) {
             $ssql=mysql_query('SELECT id_opcao FROM votou where id_opcao="'.$_POST['opcao'].'" and id_enquete="'.$id_ENQUETE.'" and sessao="'.$sessao.'"')or die(mysql_error());
             $voto=mysql_fetch_row($ssql);
   					if ($voto[0] == $_POST['opcao']){
@@ -108,42 +111,31 @@ function  show_enquete($id_ENQUETE,$sessao){
   				  exit;
   	      } //FECHA 2ºTURNO ////////////////////////////////////////////////////////////////////////////////////////
 
-        }elseif ($cont == 2){
+        } else if ($cont > 1 && $cont < $quantidade) {
 
           $ssql=mysql_query('SELECT id_opcao FROM votou where id_opcao="'.$_POST['opcao'].'" and id_enquete="'.$id_ENQUETE.'" and sessao="'.$sessao.'"')or die(mysql_error());
           $voto=mysql_fetch_row($ssql);
           if ($voto[0] == $_POST['opcao']){
             $html_enquete=$msg;
-          }else{
+          } else {
             mysql_query('INSERT INTO votos (id_enquete,id_opcao,total_votos,sessao,turno) 
                               VALUES ("'.$id_ENQUETE.'","'.$_POST['opcao'].'","'.$votos_x_opcao.'","'.$sessao.'","'.$turno.'")') or die(mysql_error());
             mysql_query('INSERT INTO votou VALUES("'.$id_ENQUETE.'","'.$_POST['opcao'].'","'.($cont+1).'","'.$sessao.'")') or die(mysql_error());
-            $html_enquete='<font style="font-family:Arial; font-size:30px; color:red"><strong>Vote no 3&deg; Candidato!</strong></font>';
+            $html_enquete='<font style="font-family:Arial; font-size:30px; color:red"><strong>Vote no '.($cont+1).'&deg; Candidato!</strong></font>';
           }
-        
-        }elseif ($cont == 3){
-          $ssql=mysql_query('SELECT id_opcao FROM votou where id_opcao="'.$_POST['opcao'].'" and id_enquete="'.$id_ENQUETE.'" and sessao="'.$sessao.'"')or die(mysql_error());
-          $voto=mysql_fetch_row($ssql);
-          if ($voto[0] == $_POST['opcao']) {
-            $html_enquete=$msg;
-					}else{
-            mysql_query('INSERT INTO votos (id_enquete,id_opcao,total_votos,sessao,turno)
-                              VALUES ("'.$id_ENQUETE.'","'.$_POST['opcao'].'","'.$votos_x_opcao.'","'.$sessao.'","'.$turno.'")') or die(mysql_error());
-            mysql_query('INSERT INTO votou VALUES("'.$id_ENQUETE.'","'.$_POST['opcao'].'","'.($cont+1).'","'.$sessao.'")') or die(mysql_error());
-            $html_enquete='<font style="font-family:Arial; font-size:30px; color:red"><strong>Vote no 4&deg; Candidato!</strong></font>';
-					}
 		    
-        }elseif ($cont == 4){
+        } else if ($cont == $quantidade) {
         
           $ssql=mysql_query('SELECT id_opcao FROM votou where id_opcao="'.$_POST['opcao'].'" and id_enquete="'.$id_ENQUETE.'" and sessao="'.$sessao.'"')or die(mysql_error());
           $voto=mysql_fetch_row($ssql);
-					if ($voto[0] == $_POST['opcao']){
+					if ($voto[0] == $_POST['opcao']) {
             $html_enquete=$msg;
-					}else{						
-							mysql_query('INSERT INTO votos (id_enquete,id_opcao,total_votos,sessao,turno)
-                                VALUES ("'.$id_ENQUETE.'","'.$_POST['opcao'].'","'.$votos_x_opcao.'","'.$sessao.'","'.$turno.'")') or die(mysql_error());
-							mysql_query('DELETE FROM votou where sessao="'.$sessao.'"') or die(mysql_error());
-							// registra voto
+					} else {						
+						mysql_query('INSERT INTO votos (id_enquete,id_opcao,total_votos,sessao,turno)
+                              VALUES ("'.$id_ENQUETE.'","'.$_POST['opcao'].'","'.$votos_x_opcao.'","'.$sessao.'","'.$turno.'")') or die(mysql_error());
+						mysql_query('DELETE FROM votou where sessao="'.$sessao.'"') or die(mysql_error());
+						
+            // registra voto
 							$sql=mysql_query('SELECT max(votos) FROM sessao where id_enquete="'.$id_ENQUETE.'" AND sessao="'.$sessao.'" AND turno="'.$turno.'"')or die(mysql_error());
 							$result=mysql_fetch_row($sql);
 							$qtvoto = $result[0]+1;
