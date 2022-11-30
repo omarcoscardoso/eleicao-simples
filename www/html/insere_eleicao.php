@@ -32,8 +32,14 @@ else{                                           //se não foi postado imprime o 
 	<div class="incluir">  
 	<form method="post" action="<?=$PHP_SELF;?>" id="enquete">
        
-     Nome Eleicao:<input type='text' name='nome_enquete' autofocus='autofocus'>
+     <!-- Nome Eleicao:<input type='text' name='nome_enquete' autofocus='autofocus'> -->
      
+    <label for="nome_enquete">Nome Eleição</label><br>
+    <input type='text' id='nome_enquete' name='nome_enquete' autofocus='autofocus'><br>
+    <label for="quantidade">Quantidade Eleitos</label><br>
+    <input type="number" id="quantidade" name="quantidade" value='4'>
+
+
      <input class="botao" type="submit" value="Incluir">
     </form>
     </div>

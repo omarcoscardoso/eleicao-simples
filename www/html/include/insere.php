@@ -126,9 +126,11 @@ function insertUrna($info,$table){
 
 function insertEleicao($info,$table){
   $count = 1;                          //Contador para auxiliar na colocação das virgula
+  $fields = null;
+  $values = null;
   foreach($info as $key=>$value){
-    $fields .= $key;                   //Montagem da query
-    $values .= "'".$value."'";         //Montagem da query
+    $fields  .= $key;                   //Montagem da query
+    $values  .= "'".$value."'";         //Montagem da query
     if($count < sizeof($info)){
       $fields .= ",";                  //Inserção das virgulas
       $values .= ",";                  //Inserção das virgulas
@@ -143,7 +145,7 @@ function insertEleicao($info,$table){
       $idEnquete = '1';
   }
 
-  mysql_query("INSERT INTO $table($fields,id_enquete) VALUES($values,$idEnquete)");                         //Realização da query
+  mysql_query("INSERT INTO $table(id_enquete,$fields) VALUES($idEnquete,$values)");                         //Realização da query
   mysql_query("INSERT INTO candidato(id_candidato,nome,id_enquete,ativo) VALUES(0,'Nulo',$idEnquete,'f')"); //Realização da query
   return (mysql_affected_rows() == 1) ? true : false;                                                       //Testa se a linha foi inserida no BD
 }

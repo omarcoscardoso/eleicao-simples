@@ -61,6 +61,7 @@ CREATE TABLE `opcoes` (
   `id_enquete` int(11) NOT NULL,
   `nome_enquete` varchar(20) NOT NULL,
   `ativo` enum('t','f') DEFAULT NULL,
+  `quantidade` int(11) NOT NULL,
   UNIQUE KEY `id_enquete` (`id_enquete`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

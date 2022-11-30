@@ -226,27 +226,34 @@ function show_candidato($id_ENQUETE){
 }
 
 function show_eleicao(){
-$html_enquete = "<link rel='stylesheet' href='css/style.css'>";
-$html_enquete.= "<h1>Elei&ccedil;&atilde;o</h1>";
-$select = mysql_query("SELECT * FROM opcoes order by opcoes.id_enquete")or die("ERRO ao consultar ao banco de dados.");
+  $html_enquete = "<link rel='stylesheet' href='css/style.css'>";
+  $html_enquete.= "<h1>Elei&ccedil;&atilde;o</h1>";
+  $select = mysql_query("SELECT * FROM opcoes order by opcoes.id_enquete")or die("ERRO ao consultar ao banco de dados.");
 
-               $html_enquete.="<table class='lista'>";
-         $linha = 0;
-         while($row = mysql_fetch_array($select)){
-               $Cod          = $row["id_enquete"];
-               $nome         = $row["nome_enquete"];
-               
-               if($linha % 2){ $cor = "#CCC"; }else{ $cor = "#FFF";}
-               
-			   $html_enquete.="<tr bgcolor='$cor' >";
-               $html_enquete.="<td align='center'><b>$Cod</b></td>";
-               $html_enquete.="<td>$nome</td>";
-               $html_enquete.="</tr>";   
-               $linha ++;
-          }
-$html_enquete.="</table>";
+  $html_enquete.="<table class='lista'>";
+  $html_enquete.="<tr>";
+  $html_enquete.="  <th>ID</th>";
+  $html_enquete.="  <th>Eleição</th>";
+  $html_enquete.="  <th>Qt. Eleitos</th>";
+  $html_enquete.="</tr>";
+  $linha = 0;
+    while($row = mysql_fetch_array($select)){
+      $Cod          = $row["id_enquete"];
+      $nome         = $row["nome_enquete"];
+      $quantidade   = $row["quantidade"];
+          
+      if($linha % 2){ $cor = "#CCC"; }else{ $cor = "#FFF";}
+          
+		  $html_enquete.="<tr bgcolor='$cor' >";
+      $html_enquete.="<td align='center'><b>$Cod</b></td>";
+      $html_enquete.="<td>$nome</td>";
+      $html_enquete.="<td>$quantidade</td>";
+      $html_enquete.="</tr>";   
+      $linha ++;
+     }
+  $html_enquete.="</table>";
 
-return $html_enquete;
+  return $html_enquete;
 }
 
 function show_urnas(){
