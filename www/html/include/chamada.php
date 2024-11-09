@@ -27,7 +27,7 @@ function chamada(){
          @media print {
             body {
                font-family: Arial, sans-serif;
-               font-size: 10pt;
+               font-size: 9pt;
             }
             .resulta {
                width: 100%;
@@ -44,10 +44,13 @@ function chamada(){
             .resulta tr {
                page-break-inside: avoid;
             }
-            /* Aplica quebra de página apenas quando necessário */
-            @page {
-                size: A4;
-                margin: 10mm;
+            /* Adiciona quebra de página a cada 35 linhas */
+            .resulta tr:nth-child(35n) {
+               page-break-before: always;
+            }
+            .msg {
+               margin-top: 20px;
+               text-align: center;
             }
          }
       </style>';
@@ -59,10 +62,15 @@ function chamada(){
       $selec = "SELECT * FROM eleitores WHERE ativo='t' order by eleitores.nome";
       $exec = mysql_query($selec) or die(mysql_error());
       
+      $i = 0;
       while($dados = mysql_fetch_array($exec)) {
+         if ($i > 0 && $i % 20 == 0) { // Adiciona quebra de página a cada 20 linhas
+            $html_enquete .= '<tr><td colspan="2" style="page-break-before: always;"></td></tr>';
+         }
          $html_enquete .= "<tr>";
          $html_enquete .= "<td align='left'>".$dados['nome']."</td>";
          $html_enquete .= "</tr>";
+         $i++;
       }
       
       $html_enquete .= "<th><br>Eleitores Presentes: ".$count."<br><br></th>";
