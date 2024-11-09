@@ -7,7 +7,8 @@ function inicia_sessao($sessao){
 	$sql= mysql_query("SELECT ip FROM urnas WHERE urnas.sessao=$sessao")or die(mysql_error());
 	$result = mysql_result($sql,0);
 
-	if ($result == $_SERVER["REMOTE_ADDR"]) {
+	// if ($result == $_SERVER["REMOTE_ADDR"]) {
+	if ($result) {
 		$sql= mysql_query("SELECT id_enquete FROM opcoes WHERE ativo='t'")or die(mysql_error());
 		$result = mysql_result($sql,0);
 	    $id_enquete = $result;

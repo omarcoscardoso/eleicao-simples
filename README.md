@@ -1,3 +1,15 @@
+SELECT concat(per_FirstName,' ',per_MiddleName,'',per_LastName) as Nome
+     , CASE per_Gender WHEN 2 THEN 'Feminino' WHEN 1 THEN 'Masculino' ELSE 'Nulo' END as Genero
+     , concat(per_BirthYear,'-',per_BirthMonth,'-',per_BirthDay) as data_nascimento  
+     , per_MembershipDate as Adminissao
+     , CASE pc.C11 WHEN 2 THEN 'Presbitero' WHEN 3 THEN 'Diacono' ELSE 'Nulo' END as Consagrado
+     , concat('t') as situacao
+  FROM person_per as pp
+     , person_custom as pc
+ WHERE pp.per_cls_ID = 1
+   AND pp.per_ID = pc.per_ID
+ Order by Nome
+
 # Eleição Simples
 
 ![banner](www/html/images/capa-eleicoes.jpg)
@@ -34,7 +46,7 @@ Você pode [acessar o código fonte do projeto](https://github.com/omarcoscardos
 Com o Docker e Docker-compose devidamente instalado, execulte:
 
 ```docker
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 Se tudo correu bem, será retornada a seguinte mensagem:
