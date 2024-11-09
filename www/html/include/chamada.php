@@ -23,12 +23,23 @@ function chamada(){
       $count = mysql_result($result,0);
       $data = date("d/m/Y - H:i:s "); 
       
-      // Estilos para impressão simplificada
+      // Estilos para impressão
       $html_enquete .= '<style>
          @media print {
             body {
                font-family: Arial, sans-serif;
                font-size: 12pt;
+               margin: 0;
+               padding: 0;
+            }
+            .cabecalho {
+               text-align: center;
+               margin-bottom: 20px;
+            }
+            .cabecalho p {
+               margin: 5px;
+               font-size: 14pt;
+               font-weight: bold;
             }
             .lista {
                width: 100%;
@@ -36,15 +47,23 @@ function chamada(){
                padding: 0;
             }
             .lista li {
-               margin: 5px 0;
+               margin: 10px 0;
+               display: flex;
+               justify-content: space-between;
+            }
+            .assinatura {
+               border-bottom: 1px solid #000;
+               width: 200px;
             }
          }
       </style>';
 
       // Cabeçalho com a data e o número de eleitores presentes
+      $html_enquete .= "<div class='cabecalho'>";
       $html_enquete .= "<h2>Lista de Presença</h2>";
       $html_enquete .= "<p>Data: $data</p>";
       $html_enquete .= "<p>Eleitores Presentes: $count</p>";
+      $html_enquete .= "</div>";
       
       // Lista dos nomes
       $html_enquete .= "<ul class='lista'>";
@@ -53,7 +72,10 @@ function chamada(){
       $exec = mysql_query($selec) or die(mysql_error());
       
       while($dados = mysql_fetch_array($exec)) {
-         $html_enquete .= "<li>".$dados['nome']."</li>";
+         $html_enquete .= "<li>";
+         $html_enquete .= $dados['nome']; 
+         $html_enquete .= "<span class='assinatura'></span>";  // Linha para assinatura
+         $html_enquete .= "</li>";
       }
       
       $html_enquete .= "</ul>";
