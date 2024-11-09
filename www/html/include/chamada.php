@@ -28,7 +28,7 @@ function chamada(){
          @media print {
             body {
                font-family: Arial, sans-serif;
-               font-size: 12pt;
+               font-size: 14pt; /* Aumenta a fonte em 2 pontos */
                margin: 0;
                padding: 0;
             }
@@ -49,11 +49,13 @@ function chamada(){
             .lista li {
                margin: 10px 0;
                display: flex;
-               justify-content: space-between;
+               justify-content: flex-start; /* Alinha os itens à esquerda */
+               align-items: center; /* Alinha verticalmente os itens */
             }
             .assinatura {
                border-bottom: 1px solid #000;
                width: 200px;
+               margin-left: 4px; /* Pequeno espaço entre o nome e a linha */
             }
          }
       </style>';
