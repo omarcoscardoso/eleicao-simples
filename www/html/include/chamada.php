@@ -23,58 +23,40 @@ function chamada(){
       $count = mysql_result($result,0);
       $data = date("d/m/Y - H:i:s "); 
       
+      // Estilos para impressão simplificada
       $html_enquete .= '<style>
          @media print {
             body {
                font-family: Arial, sans-serif;
-               font-size: 9pt;
+               font-size: 12pt;
             }
-            .resulta {
+            .lista {
                width: 100%;
-               border-collapse: collapse;
+               list-style-type: none;
+               padding: 0;
             }
-            .resulta th, .resulta td {
-               border: 1px solid #000;
-               padding: 5px;
-               text-align: left;
-            }
-            .resulta th {
-               background-color: #f2f2f2;
-            }
-            .resulta tr {
-               page-break-inside: avoid;
-            }
-            /* Adiciona quebra de página a cada 35 linhas */
-            .resulta tr:nth-child(35n) {
-               page-break-before: always;
-            }
-            .msg {
-               margin-top: 20px;
-               text-align: center;
+            .lista li {
+               margin: 5px 0;
             }
          }
       </style>';
 
-      $html_enquete .= '<table class="resulta">';
-      $html_enquete .= '<caption>Lista de Presença</caption>';
-      $html_enquete .= '<th>Data: '.$data.' </th>';
+      // Cabeçalho com a data e o número de eleitores presentes
+      $html_enquete .= "<h2>Lista de Presença</h2>";
+      $html_enquete .= "<p>Data: $data</p>";
+      $html_enquete .= "<p>Eleitores Presentes: $count</p>";
+      
+      // Lista dos nomes
+      $html_enquete .= "<ul class='lista'>";
 
-      $selec = "SELECT * FROM eleitores WHERE ativo='t' order by eleitores.nome";
+      $selec = "SELECT nome FROM eleitores WHERE ativo='t' order by nome";
       $exec = mysql_query($selec) or die(mysql_error());
       
-      $i = 0;
       while($dados = mysql_fetch_array($exec)) {
-         if ($i > 0 && $i % 20 == 0) { // Adiciona quebra de página a cada 20 linhas
-            $html_enquete .= '<tr><td colspan="2" style="page-break-before: always;"></td></tr>';
-         }
-         $html_enquete .= "<tr>";
-         $html_enquete .= "<td align='left'>".$dados['nome']."</td>";
-         $html_enquete .= "</tr>";
-         $i++;
+         $html_enquete .= "<li>".$dados['nome']."</li>";
       }
       
-      $html_enquete .= "<th><br>Eleitores Presentes: ".$count."<br><br></th>";
-      $html_enquete .= '</table>';
+      $html_enquete .= "</ul>";
       
       echo $html_enquete;   
       echo "<div class='msg'>";
