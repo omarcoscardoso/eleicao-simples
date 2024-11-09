@@ -159,7 +159,7 @@ function  show_enquete($id_ENQUETE,$sessao){
   $html_enquete.='<form action="'.$_SERVER[REQUEST_URI].'" method="POST"> ';
   $html_enquete.='<strong>Digite o n&uacute;mero do Candidato!</strong> <br>';
   $html_enquete.='<br>';
-  $html_enquete.='<input type="number" id="opcao" name="opcao" size="1" maxlength="2" value="" autocomplete="off" autofocus="autofocus" style="font-size:90px; width: 60px;">';
+  $html_enquete.='<input type="number" id="opcao" name="opcao" size="1" maxlength="2" value="" autocomplete="off" autofocus="autofocus" style="font-size:100px; width: 90px;">';
   $html_enquete.='<br>';
   $html_enquete.='<br>';
   $html_enquete.='<input class="botao_urna" type="submit" value="CONFIRMA" tabindex="2" >';
